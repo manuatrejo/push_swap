@@ -1,0 +1,66 @@
+las funciones de los movimientos, el algoritmo, función para dejar
+cosas ordenadas, función intermedia, modificar atoi
+
+lo más complejo es el algoritmo
+que tiene 1, 2, 3, 4 cosas distintas 
+y cada una hay que adaptarla para hacerla desde cada lado pero eso es
+copiar y pegar
+
+pasar en 4 grupos al b, que es dos pasos
+1 pasar la mitad pequeña 2 pasar las mitades de la mitad grande
+los pasos intermedios después de cada push
+
+pasar de un lado a otro dividiendo y ordenando si renta
+
+primero guardar los mayores que se puedan ordenar durante la división
+
+segundo y lo chungo: ir pasando de un stack a otro los mayores y 
+
+1 si es el siguiente solo push, 
+el siguiente del siguiente: swap, push,
+siguiente: rotate, swap, push, rotater
+siguiente rotate + ... + rotate y si mientras rota de vuelta tiene al
+nuevo mayor encima del b, push
+
+y si haciendo esto el nuevo mayor está cerca antes de hacer rrotate
+añadirlos al a 
+
+mientras
+después de rotate y push si el siguiente está a menos de 4 del tope
+rotar y empujar y si está en el fondo traerlo de vuelta al tope
+y empujarlo ordenado
+
+en esta parte tener cuidado con los rotates guardados si el stack es
+pequeño porque si se cumple la primera función en la que está a menos
+de 4 del tope ya va siempre para abajo si se cumple
+
+para esto necesito una cuenta de rotates, una función que me de el
+tamaño del stack y otra para la posición del índice mayor y cuando push
+actualizar el nuevo índice mayor o menor
+
+
+
+la función de división:
+
+del a al b y del b al a
+como pongo los límites y como los guardo?
+
+al principio el tamaño del stack, stack/2 y el resto para una mitad
+guardar el índice límite dentro del stack con una flag, una función
+que busque los límites en el stack
+para dividir de a al b pasarle max_sort_ind, que busque el min, calcular
+el índice límite max-min/2 y pasarlo
+y además guardar los rotate para cuando termine
+b to a pasarle min_sort_ind que busque max y lo mismo
+
+hacer una función que calcule el tamaño máximo de el stack mayor y dividir
+hasta que sea menor o igual a 4
+
+función para max_sort_ind y para min_sort_ind
+
+
+rotate: guardar cabeza, stacka = stacka->next, recorrer lista con otra temp
+y cuando NULL, temp->next = NULL tmp2->next = temp
+
+rr: recorrer, guardar último elemento, penúltimo apunta a NULL y 
+temp->next = stack_a, stack_a = temp
