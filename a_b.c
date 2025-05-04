@@ -6,39 +6,11 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 01:31:54 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 20:04:46 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 21:11:22 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	short_group_a_b(t_list **stk_a, t_list **stk_b, int **s_b)
-{
-	t_list	*temp;
-	int		bigger;
-	int		i;
-
-	temp = *stk_a;
-	bigger = -1;
-	i = 0;
-	while (temp)
-	{
-		if (bigger != -1 && temp->flag == 1)
-			break ;
-		if (temp->flag == 1)
-			bigger = temp->cont;
-		i++;
-		temp = temp->next;
-	}
-	if (i > 3)
-		return (0);
-	else
-	{
-		while (i--)
-			pa(stk_a, stk_b, s_b, NULL);
-		return (1);
-	}
-}
 
 void	three_to_b(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 {
@@ -146,5 +118,33 @@ void	sort_a_b(t_list **stk_a, t_list **stk_b, int sorted_a, int **min)
 			rra(stk_a, &n_r);
 		else if (n_r < 0)
 			ra(stk_a, &n_r);
+	}
+}
+
+int	short_group_a_b(t_list **stk_a, t_list **stk_b, int **s_b)
+{
+	t_list	*temp;
+	int		bigger;
+	int		i;
+
+	temp = *stk_a;
+	bigger = -1;
+	i = 0;
+	while (temp)
+	{
+		if (bigger != -1 && temp->flag == 1)
+			break ;
+		if (temp->flag == 1)
+			bigger = temp->cont;
+		i++;
+		temp = temp->next;
+	}
+	if (i > 3)
+		return (0);
+	else
+	{
+		while (i--)
+			pa(stk_a, stk_b, s_b, NULL);
+		return (1);
 	}
 }

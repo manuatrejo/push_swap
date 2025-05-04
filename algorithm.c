@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:15:59 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 19:03:05 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 21:10:06 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	make_two_limits(t_list **stk, int sorted_a, int sorted_b, int **lim)
 	biggest = sorted_b;
 	lowest = sorted_a;
 	while (temp && temp->cont > sorted_b && temp->cont < sorted_a
-		&& second_lim(*stk) != -1 && temp->cont == second_lim(*stk))
+		&& temp->cont != second_lim(*stk))//si no hay 2lim entonces tiene que 
 	{
 		if (temp->cont < lowest)
 			lowest = temp->cont;

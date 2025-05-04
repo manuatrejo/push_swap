@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 01:31:13 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 20:05:49 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 20:46:14 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	first_b_a(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 	size = lst_size(*stk_a) + lst_size(*stk_b);
 	size = size / 2 + size % 2;
 	size = size / 2 + size % 2;
-	while (*stk_b && (*stk_b)->cont > **s_b && (*stk_b)->cont > size)
+	while (*stk_b && (*stk_b)->cont > size)
 	{
 		while (short_group_b_a(stk_a, stk_b, s_a) == 1)
 			;

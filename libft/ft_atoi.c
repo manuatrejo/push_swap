@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:55:58 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 19:40:59 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 20:54:02 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	ft_atoi(const char *str, int *error)
+int	ft_atoi(const char *str)
 {
 	long long	result;
 	int			a;
@@ -37,9 +37,8 @@ int	ft_atoi(const char *str, int *error)
 		if (result * sign > INT_MAX || result * sign < INT_MIN)
 		{
 			write(1, "Error\n", 6);
-			*error = 0;
+			exit(0);
 		}
 	}
-	*error = 1;
 	return (sign * result);
 }
