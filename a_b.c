@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 01:31:54 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 04:08:55 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 20:04:46 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	three_to_b(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 	while (lst_size(*stk_a) >= lst_size(*stk_b))
 	{
 		if ((*stk_a)->cont <= limit1 && (*stk_a)->cont > limit2)
-			pb(stk_a, stk_b, s_b, NULL);
+			pb(stk_a, stk_b, NULL, NULL);
 		else if ((*stk_a)->cont <= limit1 && (*stk_a)->cont <= limit2)
-			(pb(stk_a, stk_b, s_b, NULL), rb(stk_b, NULL));
+			(pb(stk_a, stk_b, NULL, NULL), rb(stk_b, NULL));
 		else if ((*stk_a)->cont > limit1)
 			rra(stk_a, NULL);
 	}
@@ -74,7 +74,7 @@ void	sort_biggest(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 			if (lst_size(*stk_a) < 3)
 				break ;
 			if ((*stk_a)->cont <= limit)
-				pb(stk_a, stk_b, s_b, NULL);
+				pb(stk_a, stk_b, NULL, NULL);
 			else
 				ra(stk_a, NULL);
 		}
@@ -124,28 +124,27 @@ void	aux_a_b(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 
 void	sort_a_b(t_list **stk_a, t_list **stk_b, int sorted_a, int **min)
 {
-	int	n_rot;
+	int	n_r;
 	int	index_position;
 
-	n_rot = 0;
-	while ((f_ind(*stk_a, (**min) + 1) < 6 || n_rot > 0)
-		&& (*stk_b)->cont == **min)
+	n_r = 0;
+	while ((f_in(*stk_a, (**min) + 1) < 6 || n_r > 0) && (*stk_b)->cont == **min)
 	{
-		index_position = f_ind(*stk_a, (**min) + 1);
+		index_position = f_in(*stk_a, (**min) + 1);
 		if ((*stk_a)->cont >= sorted_a)
 			index_position = 10;
 		if (index_position == 1)
 			(pb(stk_a, stk_b, min, NULL));
 		else if (index_position == 2)
 			sa(stk_b);
-		else if (index_position < 0 && index_position > -5)
-			rra(stk_b, &n_rot);
 		else if (index_position > 2 && index_position < 6)
 		{
-			while (f_ind(*stk_a, (**min) + 1) != 1)
-				ra(stk_a, &n_rot);
+			while (f_in(*stk_a, (**min) + 1) != 1)
+				ra(stk_a, &n_r);
 		}
-		else if (n_rot > 0)
-			rra(stk_a, &n_rot);
+		else if (n_r > 0)
+			rra(stk_a, &n_r);
+		else if (n_r < 0)
+			ra(stk_a, &n_r);
 	}
 }

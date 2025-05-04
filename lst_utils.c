@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:06:05 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/02 04:08:17 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:58:23 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	lst_size(t_list *list)
 	return (i);
 }
 
-int	f_ind(t_list *list, int index)
+int	f_in(t_list *list, int index)
 {
 	int	i;
 

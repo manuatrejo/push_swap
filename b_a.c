@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 01:31:13 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 04:08:27 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 20:05:49 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sort_lowest(t_list **stk_a, t_list **stk_b, int **srt_a, int **srt_b)
 {
 	int	limit;
 	int	size;
-	
+
 	while (lst_size(*stk_b) > 2)
 	{
 		limit = make_one_limit(stk_b, **srt_a, **srt_b);
@@ -67,7 +67,7 @@ void	aux_b_a(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 	int	*limits;
 	int	n_rotates;
 	int	to_push;
-	
+
 	n_rotates = 0;
 	limits = ft_calloc(sizeof(int), 3);
 	make_two_limits(stk_b, **s_a, **s_b, &limits);
@@ -96,19 +96,17 @@ void	sort_b_a(t_list **stk_a, t_list **stk_b, int **max)
 	int	ind_posit;
 
 	n_rot = 0;
-	while ((*stk_b && f_ind(*stk_b, (**max) - 1) < 6
+	while ((*stk_b && f_in(*stk_b, (**max) - 1) < 6
 			&& (*stk_a)->cont == **max) || n_rot != 0)
 	{
-		ind_posit = f_ind(*stk_b, (**max) - 1);
+		ind_posit = f_in(*stk_b, (**max) - 1);
 		if (ind_posit == 1)
 			(pa(stk_a, stk_b, max, NULL), put_flag(stk_b, (**max) - 1));
 		else if (ind_posit == 2)
 			sb(stk_b);
-		else if (ind_posit < 0 && ind_posit > -5)
-			rrb(stk_b, &n_rot);
 		else if (ind_posit > 2 && ind_posit < 6)
 		{
-			while (f_ind(*stk_b, (**max) - 1) != 1)
+			while (f_in(*stk_b, (**max) - 1) != 1)
 				rb(stk_b, &n_rot);
 		}
 		else if (n_rot < 0)

@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:15:59 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 03:52:59 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:03:05 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,32 @@ void	algorithm(t_list **stack_a, t_list **stack_b)
 	(free(sorted_a), free(sorted_b));
 }
 
-void	make_two_limits(t_list **stack, int sorted_a, int sorted_b, int **lim)
+void	make_two_limits(t_list **stk, int sorted_a, int sorted_b, int **lim)
 {
 	t_list	*temp;
 	int		biggest;
 	int		lowest;
 
-	temp = *stack;
+	temp = *stk;
 	biggest = sorted_b;
 	lowest = sorted_a;
-	while (temp && temp->cont > sorted_b && temp->cont < sorted_a)
+	while (temp && temp->cont > sorted_b && temp->cont < sorted_a
+		&& second_lim(*stk) != -1 && temp->cont == second_lim(*stk))
 	{
-		if (temp->flag == 1 && biggest > sorted_b)
-			break ;
-		if (temp->cont < lowest && temp->flag ==  0)
+		if (temp->cont < lowest)
 			lowest = temp->cont;
-		if (temp->cont > biggest && temp->flag == 1)
+		if (temp->cont > biggest)
 			biggest = temp->cont;
 		temp = temp->next;
 	}
-	if (!temp)
-		(*lim)[2] = -1;
-	else if (biggest < temp->cont)
-		(*lim)[2] = biggest + 1;
-	else if (biggest > temp->cont)
-		(*lim)[2] = temp->cont;
-	(*lim)[1] = put_flag(stack, ((1 + biggest - lowest) / 3) + lowest - 1);
-	(*lim)[0] = put_flag(stack, ((1 + biggest - lowest) / 3) + (*lim)[1] - 1);
+	if (second_lim(*stk) > first_lim(*stk))
+		(*lim)[2] = first_lim(*stk) + 1;
+	else if (second_lim(*stk) <= first_lim(*stk))
+		(*lim)[2] = second_lim(*stk);
+	if (lowest > second_lim(*stk))
+		lowest = second_lim(*stk) + 1;
+	(*lim)[1] = put_flag(stk, ((1 + biggest - lowest) / 3) + lowest - 1);
+	(*lim)[0] = put_flag(stk, ((1 + biggest - lowest) / 3) + (*lim)[1] - 1);
 }
 
 int	make_one_limit(t_list **stack, int sorted_a, int sorted_b)
@@ -74,7 +73,7 @@ int	make_one_limit(t_list **stack, int sorted_a, int sorted_b)
 	temp = *stack;
 	biggest = sorted_b;
 	lowest = sorted_a;
-	while (temp && (temp->cont > sorted_b || temp->cont < sorted_a))
+	while (temp && temp->cont > sorted_b && temp->cont < sorted_a)
 	{
 		if (temp->cont < lowest)
 			lowest = temp->cont;
@@ -101,7 +100,7 @@ int	put_flag(t_list **stack, int index)
 		}
 		temp = temp->next;
 	}
-	return (0);
+	return (index);
 }
 
 void	simple_sort(t_list **stack_a, t_list **stack_b)

@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:04:50 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 01:06:51 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:58:23 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	rb(t_list **stack_b, int *n_rot);
 void	rra(t_list **stack_a, int *n_rot);
 void	rrb(t_list **stack_b, int *n_rot);
 int		lst_size(t_list *list);
-int		f_ind(t_list *list, int index);
+int		f_in(t_list *list, int index);
 void	free_list(t_list **list);
 void	free_array(char **array);
 int		is_sorted(t_list *list);
@@ -52,8 +52,10 @@ int		b_is_sorted(t_list *list);
 void	simple_sort(t_list **stack_a, t_list **stack_b);
 void	three_to_b(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	make_two_limits(t_list **stack, int s_a, int s_b, int **limits);
+int		first_lim(t_list *stack);
+int		second_lim(t_list *stack);
 int		make_one_limit(t_list **stack, int s_a, int s_b);
-int		put_flag(t_list **stack, int index);
+int		put_flag(t_list **stack_a, int index);
 void	aux_b_a(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	aux_a_b(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	sort_a_b(t_list **stack_a, t_list **stack_b, int s_a, int **s_b);

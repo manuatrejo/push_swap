@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:08:33 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/02 04:09:55 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:35:45 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	stack_b = NULL;
 	if (argc < 2)
-		return (write(1, "Error\n", 6), 0);
+		return (0);
 	while (argv[i])
 	{
 		if (argv[i][0] == '\0')
