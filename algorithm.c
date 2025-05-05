@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:15:59 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 21:10:06 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/05 06:39:28 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,34 @@ void	algorithm(t_list **stack_a, t_list **stack_b)
 	*sorted_b = -1;
 	three_to_b(stack_a, stack_b, &sorted_a, &sorted_b);
 	first_b_a(stack_a, stack_b, &sorted_a, &sorted_b);
+	print_limits(*stack_a);
 	while (*sorted_a != *sorted_b + 1)
 	{
 		three_a_b(stack_a, stack_b, &sorted_a, &sorted_b);
+		print_limits(*stack_b);
+		print_limits(*stack_a);
+		printf("sad %d", *sorted_a);
 		if (*sorted_a != *sorted_b + 1)
 			three_b_a(stack_a, stack_b, &sorted_a, &sorted_b);
+		printf("sA:%d", *sorted_a);
+		exit(0);
 	}
 	sort_b_a(stack_a, stack_b, &sorted_a);
 	(free(sorted_a), free(sorted_b));
 }
 
-void	make_two_limits(t_list **stk, int sorted_a, int sorted_b, int **lim)
+void	make_two_limits(t_list **stk, int s_a, int s_b, int **lim)
 {
 	t_list	*temp;
 	int		biggest;
 	int		lowest;
 
 	temp = *stk;
-	biggest = sorted_b;
-	lowest = sorted_a;
-	while (temp && temp->cont > sorted_b && temp->cont < sorted_a
-		&& temp->cont != second_lim(*stk))//si no hay 2lim entonces tiene que 
+	biggest = s_b;
+	lowest = s_a;
+	while (temp && temp->cont < s_a && temp->cont > s_b && temp->cont < s_a
+				&& ((s_lim(*stk) > f_lim(*stk) && temp->cont <= f_lim(*stk))
+				|| (s_lim(*stk) < f_lim(*stk) && temp->cont > s_lim(*stk))))
 	{
 		if (temp->cont < lowest)
 			lowest = temp->cont;
@@ -53,12 +60,12 @@ void	make_two_limits(t_list **stk, int sorted_a, int sorted_b, int **lim)
 			biggest = temp->cont;
 		temp = temp->next;
 	}
-	if (second_lim(*stk) > first_lim(*stk))
-		(*lim)[2] = first_lim(*stk) + 1;
-	else if (second_lim(*stk) <= first_lim(*stk))
-		(*lim)[2] = second_lim(*stk);
-	if (lowest > second_lim(*stk))
-		lowest = second_lim(*stk) + 1;
+	if (s_lim(*stk) > f_lim(*stk))
+		(*lim)[2] = f_lim(*stk) + 1;
+	else if (s_lim(*stk) <= f_lim(*stk))
+		(*lim)[2] = s_lim(*stk);
+	if (lowest > s_lim(*stk))
+		lowest = s_lim(*stk) + 1;
 	(*lim)[1] = put_flag(stk, ((1 + biggest - lowest) / 3) + lowest - 1);
 	(*lim)[0] = put_flag(stk, ((1 + biggest - lowest) / 3) + (*lim)[1] - 1);
 }

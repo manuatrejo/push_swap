@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:06:05 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 19:58:23 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/05 04:07:37 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	f_in(t_list *list, int index)
 			break ;
 		list = list->next;
 	}
-	if (lst_size(list) / 2 >= i - 1)
-		return (i);
-	return (i - lst_size(list) - 1);
+	return (i);
 }
 
 void	free_list(t_list **list)
@@ -72,6 +70,17 @@ void	print_list(t_list *list)
 	while (list)
 	{
 		printf("%d\n", list->cont);
+		list = list->next;
+	}
+	printf("\n");
+}
+
+void	print_limits(t_list *list)
+{
+	while (list)
+	{
+		if (list->flag == 1)
+			printf("%d\n", list->cont);
 		list = list->next;
 	}
 	printf("\n");

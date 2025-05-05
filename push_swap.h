@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:04:50 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 19:58:23 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/05 02:18:56 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int		b_is_sorted(t_list *list);
 void	simple_sort(t_list **stack_a, t_list **stack_b);
 void	three_to_b(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	make_two_limits(t_list **stack, int s_a, int s_b, int **limits);
-int		first_lim(t_list *stack);
-int		second_lim(t_list *stack);
+int		f_lim(t_list *stack);
+int		s_lim(t_list *stack);
 int		make_one_limit(t_list **stack, int s_a, int s_b);
 int		put_flag(t_list **stack_a, int index);
 void	aux_b_a(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
@@ -65,10 +65,11 @@ void	sort_lowest(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	three_a_b(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	three_b_a(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	algorithm(t_list **stack_a, t_list **stack_b);
-int		short_group_b_a(t_list **stk_a, t_list **stk_b, int **s_a);
-int		short_group_a_b(t_list **stk_a, t_list **stk_b, int **s_b);
+int		short_group_b_a(t_list **stk_a, t_list **stk_b, int **s_a, int s_b);
+int		short_group_a_b(t_list **stk_a, t_list **stk_b, int s_a, int **s_b);
 void	first_b_a(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b);
 
 void	print_list(t_list *list);
+void	print_limits(t_list *list);
 
 #endif

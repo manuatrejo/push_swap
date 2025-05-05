@@ -6,13 +6,13 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 20:05:28 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 20:05:29 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/05 04:36:18 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	first_lim(t_list *stack)
+int	f_lim(t_list *stack)
 {
 	t_list	*temp;
 
@@ -26,12 +26,12 @@ int	first_lim(t_list *stack)
 	return (-1);
 }
 
-int	second_lim(t_list *stack)
+int	s_lim(t_list *stack)
 {
 	t_list	*temp;
 	int		first;
-
-	first = first_lim(stack);
+//si el primero es el mayor hay que ver si hay algun elemento con flag e índice mayor al primero 
+	first = f_lim(stack);
 	if (first == -1)
 		return (-1);
 	temp = stack;

@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:07:01 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 04:05:36 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/05 06:08:20 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void	pa(t_list **stk_a, t_list **stk_b, int **s_a, int *to_push)
 {
 	if (s_a && (*stk_b)->cont == (**s_a) - 1)
 	{
-		(**s_a)--;
-		put_flag(stk_b, (**s_a) - 1);	
+		if ((*stk_a)->cont == (*stk_b)->cont - 1)
+		{
+			(**s_a)--;
+			put_flag(stk_b, (**s_a) - 1);
+		}
 	}
 	if (to_push)
 		(*to_push)--;

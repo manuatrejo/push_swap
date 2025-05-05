@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 01:31:54 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/04 21:11:22 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/05 06:35:53 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	sort_biggest(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 	{
 		limit = make_one_limit(stk_a, **s_a, **s_b);
 		size = lst_size(*stk_a);
-		while (size-- > -1)
+		while (--size > -1)
 		{
 			if (lst_size(*stk_a) < 3)
 				break ;
@@ -53,14 +53,18 @@ void	sort_biggest(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 	}
 	if ((*stk_a)->next && (*stk_a)->cont > (*stk_a)->next->cont)
 		sa(stk_a);
+	if ((*stk_a)->next && (*stk_a)->cont < (*stk_a)->next->cont)
+		pb(stk_a, stk_b, NULL, NULL);
 	**s_a = (*stk_a)->cont;
+	put_flag(stk_b, (**s_a) - 1);
 }
 
 void	three_a_b(t_list **stk_a, t_list **stk_b, int **sort_a, int **sort_b)
 {
 	while (*stk_a && (*stk_a)->cont < **sort_a)
 	{
-		while (short_group_a_b(stk_a, stk_b, sort_b))
+		sort_a_b(stk_a, stk_b, **sort_a, sort_b);
+		while (short_group_a_b(stk_a, stk_b, **sort_a, sort_b))
 			;
 		aux_a_b(stk_a, stk_b, sort_a, sort_b);
 	}
@@ -78,73 +82,70 @@ void	aux_a_b(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 	while (*stk_a && (*stk_a)->cont < limits[2] && (*stk_a)->cont < **s_a)
 	{
 		sort_a_b(stk_a, stk_b, **s_a, s_b);
-		if ((*stk_a)->cont < limits[1])
+		if ((*stk_a)->cont < limits[1])//límite pequeño entonces los menores se mandan, los menores al grande se mandan despúes y los mayores últimos
 			pb(stk_a, stk_b, s_b, NULL);
-		else
+		else if ((*stk_a)->cont >= limits[1])
 			ra(stk_a, &n_rotates);
 	}
 	to_push = n_rotates;
-	while ((0 < n_rotates || to_push) && *stk_a && (*stk_a)->cont > **s_a)
+	while ((n_rotates > 0 || to_push) && *stk_a && (*stk_a)->cont < **s_a)
 	{
 		if ((*stk_a)->cont < limits[0] || (to_push && n_rotates < 1))
 			pb(stk_a, stk_b, s_b, &to_push);
-		if (n_rotates > 0)
+		else if (n_rotates > 0)
 			rra(stk_a, &n_rotates);
 	}
 	free(limits);
 }
 
-void	sort_a_b(t_list **stk_a, t_list **stk_b, int sorted_a, int **min)
+void	sort_a_b(t_list **stk_a, t_list **stk_b, int sorted_a, int **s_b)
 {
 	int	n_r;
 	int	index_position;
 
 	n_r = 0;
-	while ((f_in(*stk_a, (**min) + 1) < 6 || n_r > 0) && (*stk_b)->cont == **min)
+	while ((f_in(*stk_a, (**s_b) + 1) < 20 || n_r > 0) && (*stk_b)->cont == **s_b)
 	{
-		index_position = f_in(*stk_a, (**min) + 1);
+		index_position = f_in(*stk_a, (**s_b) + 1);
 		if ((*stk_a)->cont >= sorted_a)
-			index_position = 10;
+			index_position = 50;
 		if (index_position == 1)
-			(pb(stk_a, stk_b, min, NULL));
+			(pb(stk_a, stk_b, s_b, NULL));
 		else if (index_position == 2)
 			sa(stk_b);
-		else if (index_position > 2 && index_position < 6)
+		else if (index_position > 2 && index_position < 20)
 		{
-			while (f_in(*stk_a, (**min) + 1) != 1)
+			while (f_in(*stk_a, (**s_b) + 1) != 1)
 				ra(stk_a, &n_r);
-		}
+		}//se pueden coger también los elementos de abajo cuando lst_size - n_rotates > index_position
 		else if (n_r > 0)
 			rra(stk_a, &n_r);
-		else if (n_r < 0)
-			ra(stk_a, &n_r);
 	}
 }
 
-int	short_group_a_b(t_list **stk_a, t_list **stk_b, int **s_b)
+int	short_group_a_b(t_list **stk_a, t_list **stk_b, int s_a, int **s_b)
 {
-	t_list	*temp;
-	int		bigger;
+	t_list	*tmp;
+	int		lowest;
 	int		i;
-
-	temp = *stk_a;
-	bigger = -1;
-	i = 0;
-	while (temp)
-	{
-		if (bigger != -1 && temp->flag == 1)
-			break ;
-		if (temp->flag == 1)
-			bigger = temp->cont;
-		i++;
-		temp = temp->next;
-	}
-	if (i > 3)
+	
+	if ((*stk_a)->cont >= s_a)
 		return (0);
-	else
+	sort_a_b(stk_a, stk_b, s_a, s_b);
+	tmp = *stk_a;
+	lowest = f_lim(*stk_a);
+	while (tmp && tmp->cont < f_lim(*stk_a))
 	{
-		while (i--)
-			pa(stk_a, stk_b, s_b, NULL);
+		if (tmp->cont < lowest)
+			lowest = tmp->cont;
+		tmp = tmp->next;
+	}
+	i = f_lim(*stk_a) - lowest + 1;
+	if (i < 4 && i > 0)
+	{
+		while (i-- && (*stk_a)->cont < s_a)
+			pb(stk_a, stk_b, s_b, NULL);
 		return (1);
 	}
+	return (0);
 }

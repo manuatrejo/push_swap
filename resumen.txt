@@ -125,4 +125,6 @@ entonces tengo un algoritmo que con (m -1) *  n movimientos hace  m grupos con u
 
 cuanto tiene que decrecer cada subgrupo por iteración para que sea óptimo? esta es la pregunta del siglo
 
-puedo dejar 
+puedo dejar while (temp->cont > s_b && temp->cont < s_a && ((s_lim(*stk) > f_lim(*stk)
+				&& temp->cont <= f_lim(*stk)) || (s_lim(*stk) < f_lim(*stk)
+				&& temp->cont > s_lim(*stk))) && temp && temp->cont < s_a)
