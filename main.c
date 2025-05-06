@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:08:33 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/05 02:57:54 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/06 03:14:32 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,27 +113,31 @@ t_list	*index_list(t_list *list)
 	return (new_list);
 }
 
-#include <fcntl.h>
+int	check_doubles(t_list *stack)
+{
+	t_list *tmp;
+
+	while(stack)
+	{
+		if (stack->next)
+			tmp = stack->next;
+		while(tmp)
+		{
+			if (tmp->cont == stack->cont)
+				return (0);
+			tmp = tmp->next;
+		}
+		stack = stack->next;
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
 	t_list	*temp;
 	int		i;
-
-	    int archivo = open("salida.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (archivo < 0) {
-        perror("No se pudo abrir el archivo");
-        exit(1);
-    }
-
-    // Redirige stdout (fd 1) al archivo
-    if (dup2(archivo, 1) < 0) {
-        perror("Error al redirigir stdout");
-        close(archivo);
-        exit(1);
-    }
-
 
 	i = 0;
 	stack_b = NULL;
@@ -146,15 +150,13 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	if (!valid_numbers(argv))
-		exit(0);
+		return (0);
 	temp = make_list(argv);
+	if (!check_doubles(temp))
+		return(free_list(&temp), write(1, "Error\n", 6), 0);
 	stack_a = index_list(temp);
 	free_list(&temp);
 	if (is_sorted(stack_a))
 		return (free_list(&stack_a), 0);
-	algorithm(&stack_a, &stack_b);
-	free_list(&stack_a);
-    close(archivo);
-
-    return 0;
+    return (algorithm(&stack_a, &stack_b), free_list(&stack_a), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 01:31:54 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/05 06:35:53 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/06 06:05:09 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	three_to_b(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 		if ((*stk_a)->cont <= limit1 && (*stk_a)->cont > limit2)
 			pb(stk_a, stk_b, NULL, NULL);
 		else if ((*stk_a)->cont <= limit1 && (*stk_a)->cont <= limit2)
-			(pb(stk_a, stk_b, NULL, NULL), rb(stk_b, NULL));
+			(pb(stk_a, stk_b, NULL, NULL), rb(stk_a, stk_b, NULL));
 		else if ((*stk_a)->cont > limit1)
-			rra(stk_a, NULL);
+			rra(stk_a, stk_b, NULL);
 	}
 	sort_biggest(stk_a, stk_b, s_a, s_b);
 }
@@ -47,12 +47,12 @@ void	sort_biggest(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 				break ;
 			if ((*stk_a)->cont <= limit)
 				pb(stk_a, stk_b, NULL, NULL);
-			else
-				ra(stk_a, NULL);
+			else if ((*stk_a)->cont > limit)
+				ra(stk_a, stk_b, NULL);
 		}
 	}
 	if ((*stk_a)->next && (*stk_a)->cont > (*stk_a)->next->cont)
-		sa(stk_a);
+		sa(stk_a, stk_b);
 	if ((*stk_a)->next && (*stk_a)->cont < (*stk_a)->next->cont)
 		pb(stk_a, stk_b, NULL, NULL);
 	**s_a = (*stk_a)->cont;
@@ -82,44 +82,45 @@ void	aux_a_b(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b)
 	while (*stk_a && (*stk_a)->cont < limits[2] && (*stk_a)->cont < **s_a)
 	{
 		sort_a_b(stk_a, stk_b, **s_a, s_b);
-		if ((*stk_a)->cont < limits[1])//límite pequeño entonces los menores se mandan, los menores al grande se mandan despúes y los mayores últimos
+		if ((*stk_a)->cont <= limits[1])
 			pb(stk_a, stk_b, s_b, NULL);
-		else if ((*stk_a)->cont >= limits[1])
-			ra(stk_a, &n_rotates);
+		else if ((*stk_a)->cont > limits[1])
+			ra(stk_a, stk_b, &n_rotates);
 	}
 	to_push = n_rotates;
-	while ((n_rotates > 0 || to_push) && *stk_a && (*stk_a)->cont < **s_a)
+	while ((n_rotates > 0 || to_push) && *stk_a)
 	{
-		if ((*stk_a)->cont < limits[0] || (to_push && n_rotates < 1))
+		if (n_rotates > 0)
+			rra(stk_a, stk_b, &n_rotates);
+		if ((*stk_a)->cont <= limits[0] || (to_push && n_rotates < 1))
 			pb(stk_a, stk_b, s_b, &to_push);
-		else if (n_rotates > 0)
-			rra(stk_a, &n_rotates);
 	}
 	free(limits);
 }
 
-void	sort_a_b(t_list **stk_a, t_list **stk_b, int sorted_a, int **s_b)
+void	sort_a_b(t_list **stk_a, t_list **stk_b, int s_a, int **s_b)
 {
 	int	n_r;
 	int	index_position;
+	int	n;
 
 	n_r = 0;
-	while ((f_in(*stk_a, (**s_b) + 1) < 20 || n_r > 0) && (*stk_b)->cont == **s_b)
+	n = 25;
+	while ((f_in(*stk_a, (**s_b) + 1) < n && (*stk_a)->cont < s_a
+			&& (*stk_b)->cont == **s_b) || n_r > 0)
 	{
-		index_position = f_in(*stk_a, (**s_b) + 1);
-		if ((*stk_a)->cont >= sorted_a)
-			index_position = 50;
-		if (index_position == 1)
+		index_position = f_in(*stk_a, (**s_b) + 1); 
+		if (index_position == 1 && (*stk_a)->cont < s_a)
 			(pb(stk_a, stk_b, s_b, NULL));
 		else if (index_position == 2)
-			sa(stk_b);
-		else if (index_position > 2 && index_position < 20)
+			sa(stk_a, stk_b);
+		else if (index_position > 2 && index_position < n)
 		{
 			while (f_in(*stk_a, (**s_b) + 1) != 1)
-				ra(stk_a, &n_r);
-		}//se pueden coger también los elementos de abajo cuando lst_size - n_rotates > index_position
+				ra(stk_a, stk_b, &n_r);
+		}
 		else if (n_r > 0)
-			rra(stk_a, &n_r);
+			rra(stk_a, stk_b, &n_r);
 	}
 }
 
@@ -129,7 +130,7 @@ int	short_group_a_b(t_list **stk_a, t_list **stk_b, int s_a, int **s_b)
 	int		lowest;
 	int		i;
 	
-	if ((*stk_a)->cont >= s_a)
+	if (*stk_a && (*stk_a)->cont >= s_a)
 		return (0);
 	sort_a_b(stk_a, stk_b, s_a, s_b);
 	tmp = *stk_a;

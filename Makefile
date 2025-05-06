@@ -12,7 +12,7 @@
 
 NAME = push_swap
 
-FLAGS = -Wall -Wextra -Werror -g3
+FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address,leak
 
 SRCS = algorithm.c instructions_a.c instructions_b.c is_sorted.c lst_utils.c\
 		movements.c main.c b_a.c a_b.c make_limits_utils.c
@@ -25,10 +25,10 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C libft
-	cc $(FLAGS) -g $(OBJS) libft/libft.a -o $(NAME)
+	cc $(FLAGS)  $(OBJS) libft/libft.a -o $(NAME)
 
 %.o: %.c
-	cc $(FLAGS) -g -c $< -o $@
+	cc $(FLAGS)  -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)

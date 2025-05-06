@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:04:50 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/05 02:18:56 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/06 05:40:30 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	rr(t_list **stack_a, t_list **stack_b);
 void	rrr(t_list **stack_a, t_list **stack_b);
 void	pa(t_list **stack_a, t_list **stack_b, int **s_a, int *to_push);
 void	pb(t_list **stack_a, t_list **stack_b, int **s_b, int *to_push);
-void	sa(t_list **stack_a);
-void	sb(t_list **stack_b);
-void	ra(t_list **stack_a, int *n_rot);
-void	rb(t_list **stack_b, int *n_rot);
-void	rra(t_list **stack_a, int *n_rot);
-void	rrb(t_list **stack_b, int *n_rot);
+void	sa(t_list **stack_a, t_list **stack_b);
+void	sb(t_list **stack_a, t_list **stack_b);
+void	ra(t_list **stack_a, t_list **stack_b, int *n_rot);
+void	rb(t_list **stack_a, t_list **stack_b, int *n_rot);
+void	rra(t_list **stack_a, t_list **stack_b, int *n_rot);
+void	rrb(t_list **stack_a, t_list **stack_b, int *n_rot);
 int		lst_size(t_list *list);
 int		f_in(t_list *list, int index);
 void	free_list(t_list **list);
@@ -59,15 +59,16 @@ int		put_flag(t_list **stack_a, int index);
 void	aux_b_a(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	aux_a_b(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	sort_a_b(t_list **stack_a, t_list **stack_b, int s_a, int **s_b);
-void	sort_b_a(t_list **stack_a, t_list **stack_b, int **s_a);
+void	sort_b_a(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	sort_biggest(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	sort_lowest(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	three_a_b(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	three_b_a(t_list **stack_a, t_list **stack_b, int **s_a, int **s_b);
 void	algorithm(t_list **stack_a, t_list **stack_b);
-int		short_group_b_a(t_list **stk_a, t_list **stk_b, int **s_a, int s_b);
+int		short_group_b_a(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b);
 int		short_group_a_b(t_list **stk_a, t_list **stk_b, int s_a, int **s_b);
 void	first_b_a(t_list **stk_a, t_list **stk_b, int **s_a, int **s_b);
+int		optimal(t_list **stk_a, t_list **stk_b);
 
 void	print_list(t_list *list);
 void	print_limits(t_list *list);

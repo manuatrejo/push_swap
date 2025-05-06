@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:06:05 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/05 04:07:37 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/05 21:50:14 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	f_in(t_list *list, int index)
 		i++;
 		if (list->cont == index)
 			break ;
+		if (!list->next)
+			return (0);
 		list = list->next;
 	}
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: manguita <manguita@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:15:59 by manguita          #+#    #+#             */
-/*   Updated: 2025/05/05 06:39:28 by manguita         ###   ########.fr       */
+/*   Updated: 2025/05/06 06:16:41 by manguita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,14 @@ void	algorithm(t_list **stack_a, t_list **stack_b)
 	*sorted_b = -1;
 	three_to_b(stack_a, stack_b, &sorted_a, &sorted_b);
 	first_b_a(stack_a, stack_b, &sorted_a, &sorted_b);
-	print_limits(*stack_a);
-	while (*sorted_a != *sorted_b + 1)
+	while (*sorted_a != *sorted_b + 1 && *sorted_a != *sorted_b)
 	{
 		three_a_b(stack_a, stack_b, &sorted_a, &sorted_b);
-		print_limits(*stack_b);
-		print_limits(*stack_a);
-		printf("sad %d", *sorted_a);
-		if (*sorted_a != *sorted_b + 1)
+		if (*sorted_a != *sorted_b + 1 && *sorted_a != *sorted_b)
 			three_b_a(stack_a, stack_b, &sorted_a, &sorted_b);
-		printf("sA:%d", *sorted_a);
-		exit(0);
 	}
-	sort_b_a(stack_a, stack_b, &sorted_a);
+	while (*stack_b)
+		pa(stack_a, stack_b, NULL, NULL);
 	(free(sorted_a), free(sorted_b));
 }
 
@@ -116,10 +111,10 @@ void	simple_sort(t_list **stack_a, t_list **stack_b)
 	{
 		if ((*stack_a)->cont - 2 == (*stack_a)->next->cont
 			|| (*stack_a)->cont - 2 == (*stack_a)->next->next->cont)
-			ra(stack_a, NULL);
+			ra(stack_a, stack_b, NULL);
 		else if ((*stack_a)->next->cont - 2 == (*stack_a)->cont
 			|| (*stack_a)->next->cont - 2 == (*stack_a)->cont)
-			rra(stack_a, NULL);
+			rra(stack_a, stack_b, NULL);
 	}
 	else if (lst_size(*stack_a) == 4 || lst_size(*stack_a) == 5)
 	{
@@ -128,11 +123,11 @@ void	simple_sort(t_list **stack_a, t_list **stack_b)
 			if ((*stack_a)->cont < 2)
 				pb(stack_a, stack_b, NULL, NULL);
 			else
-				ra(stack_a, NULL);
+				ra(stack_a, stack_b, NULL);
 		}
 		simple_sort(stack_a, stack_b);
 		pa(stack_a, stack_b, NULL, NULL);
 	}
 	if (!is_sorted(*stack_a))
-		sa(stack_a);
+		sa(stack_a, stack_b);
 }
