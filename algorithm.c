@@ -83,7 +83,7 @@ int	make_one_limit(t_list **stack, int sorted_a, int sorted_b)
 			biggest = temp->cont;
 		temp = temp->next;
 	}
-	limit = ((1 + biggest - lowest) / 2) + (1 + biggest - lowest) % 2 + lowest;
+	limit = ((1 + biggest - lowest) / 2) + (1 + biggest - lowest) % 2 + lowest - 1;
 	put_flag(stack, limit);
 	return (limit);
 }
