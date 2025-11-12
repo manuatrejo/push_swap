@@ -1,0 +1,63 @@
+Como hacerlo más fácil, reutilizable y eficiente?
+
+
+1 Mandar todo al b ordenado en bloques
+
+2 Ordenar desde el fondo del a
+Se puede seleccionar un número n en función del tamaño total de la lista para que traiga el 
+elemento desde n espacios de distancia
+
+3 Traer del b hasta el último grupo
+
+4 Ordenar el fondo del b
+
+5 Operaciones entre A y B
+
+
+Lógica mínima necesaria por paso
+
+1 Que no haya fallos con las funciones limits por tamaño o falta de flags
+Finalizar esta fase solo con los dos elementos mayores en a
+EN MAKE_ONE_LIMIT limit = ((1 + biggest - lowest) / 2) + (1 + biggest - lowest) % 2 + lowest - 1;
+En three_to_b limit2 = limit1 / 2 + limit1 % 2 - 1
+
+2 Solo cambiar el valor del más alto ordenado si es el siguiente valor
+
+3 No romper el orden de los grupos o hacer operaciones erroneas
+Finalizar esta fase solo con los dos elementos menores en b
+
+4 Igual que el paso 2
+
+5 
+
+
+Es importante tener claras las condiciones de stop para cada paso y cada Función
+
+se puede esperar a que los límites estén arriba
+
+Para encandenar puede ser en cualquier momento y cuando se le ponga un límite a un elemento de la
+cadena se le pone a todos los elementos, puedo usar un flag para cadenas en orden
+
+RESUMEN
+
+Implementar cadenas, ordenar a partir de límites.
+
+Etiquetar las cadenas y al manipular las cadenas y los límites buscar sus adyacentes
+Para adaptar esta idea toca mover los elementos en paquetes cuando estén en cadenas
+Los movimientos se realizarán tantas veces como elementos haya en la cadena y sin swaps
+Entonces necesitaré una función modificada que me de el valor más bajo dentro del límite
+
+Hay que mover las cadenas sin romperlas y cuando se ponga un límite en una cadena se le pone el flag
+a todos los elementos de la cadena
+
+CAMBIOS NECESARIOS
+
+1 Función para obtener el valor mayor y menor de una cadena
+2 Función límites
+3 Hacer el mismo movimiento n veces(función que llame a otra función)(*f)
+4 Estructura para cadena
+5 Función para asignar cadenas
+6 Función para aumentar cadenas y límites
+
+1 Arreglar el de mayo
+2 Hacer el nuevo más óptimizado

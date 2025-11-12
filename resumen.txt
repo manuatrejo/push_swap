@@ -1,0 +1,130 @@
+parsear los datos con split, comprobar si hay dobles y si hay caracteres que no sean números o espacios(atoi), indexar los números y crear la lista enlazada con los números indexados
+
+utilizar un algoritmo para ordenar los datos
+
+empujar los datos al stack b y luego dejarlos en la mitad superior del stack en caso de ser los mayores de la mitad mayor, seguir empujando lo que queda del stack a a la parte baja del stack b
+y dentro de esta mitad llevar a la mitad alta a los números altos y a la baja a los otros
+
+lo más eficiente es mandar los números bajos al fondo del stack b y los mayores arriba para que luego se queden abajo
+
+es más eficiente empezar con los números bajos o con los altos ? si empiezas con los altos luego al hacer push a los bajos quedarían arriba y no es lo que queremos 
+
+
+empezamos recorriendo el stack a y haciendo push b y en caso de ser de la mitad baja se hace rrb o si conviene rrr que manda el primer elemento como último
+
+cuando se termina la primera iteración se hace otra vez igual para llenar el b y luego se empieza a recorrer 25% mayor del b y empujamos en caso de que sea de la mitad mayor, else rr
+cuando se tiene la primera mitad mayor en el stack a hay que rb push a
+    para este paso hay que tener el tamaño del bloque n y ejecutar las instrucciones n veces, los bloques impares empezando desde el 1 haces push si mayor, else rb
+                                                                                              los bloques pares primero rrb los que había abajo y si no push a directamente
+
+
+
+en todo momento si en el stack a y en el b pero al revés los elementos quedan más ordenados se hace swapr y luego se sigue haciendo push ya que ahorras rotates al hacer esto
+con una función que compruebe que el primer elemento es mayor al segundo en caso de stack a y ! en el stack b 
+
+
+
+checkpoint: aquí lo que queda es un stack b dividido en 4 bloques no ordenados y el objetivo es llenar el stack a en 16 bloques y luego el b en 64 y así hasta que el número de bloques sea mayor a un cuarto
+del número total de elementos y hacer una última iteración o recorrer la lista haciendo swaps
+
+optimización: añadir pasos o comprobaciones intermedias en el algoritmo que ahorren movimientos a mi objetivo que es siempre llevar 
+
+por ejemplo si los primeros elementos de un stack ya están ordenados en el b o los últimos en el a no cambiarlos de stack,
+si en algún caso se ejecuta el mismo comando en a y en b ejecutar el comando en los dos
+
+
+
+
+
+
+el problema a solucionar es cuando pushb y hay un grupo que no puede ir encima, entonces menos al principio tengo que dejar la mitad más grande apartada y luego insertarla
+
+de idea en idea para ahorrar: solo hace falta empujar al b todos los chunks excepto el último, cuando en a el de arriba sea mayor y en b el de debajo se hace swap, 
+del b al a se puede dejar el último chunk sin empujar
+
+como empujar del b al doblando los grupos?
+si es de la mitad mayor solo pusha, else pusha y mandar abajo
+
+como hacer los grupos del tamaño adecuado vamos a poner el caso de 15 elementos primero está claro que serían 8 y 7, 44 43, 2222 22 21
+en el caso de 12: 6 6, 33 33, 2121 2121
+9: 4 5, 22 23 
+
+entonces para obtener el tamaño de los grupos se divide entre dos y si hay resto se le suma al primer bloque entonces el tamaño de los bloques nuevos es en caso del primer bloque 
+el tamaño del primero entre dos mas el resto de la división
+
+se puede resolver hardcodeando los elementos mayores e ir dejandolos en el stack
+
+si tengo un algoritmo que resuelve con cantidades pequeñas hardcodeado una vez que tenga un bloque lo suficientemente pequeño puedo ir aplicando el algoritmo pequeño que está optimizado al máximo y 
+terminar de resolver pasando los elementos y ordenandolos de grupo en grupo o directamente hacer push de los elementos mayores del grupo en la cima del b
+
+entonces para esta última fase lo que tengo que saber es cuando se vuelve eficiente empezar a mandar los elementos que entrarían ordenados en el a y cual es la forma de hacerlo con el menor número de
+movimientos y como hago para que al pasarlo se me queden lo más ordenados posible
+
+89 
+4567
+en estos casos qué me puede ahorrar movimientos? primero dos pusha, luego en caso de poder hacer swapr hacerlo y así hasta encontrar el mayor
+
+es más eficiente esto último o duplicar el número de bloques otra vez? para el caso anterior los movimientos máximos son 4 push, 1 swap, 2 rotate
+
+
+
+en resumen de todo hasta ahora los números altos se quedan abajo ordenados según los vaya encontrando,
+para esto cuando encontremos el número mayor no ordenado lo llevamos al stack a y el número de ordenados aumenta en 1
+
+siempre que haciendo pusha o swap y pusha se quede ordenado un número en el a se hará, siempre que un swapr ordene los números también se hará, los push se harán siempre que se pueda de 2 en 2 para ahorrar
+con un posible swapr movimientos y siempre que se pueda swap
+
+cada vez que se añada un elemento ordenado al a entonces restar un elemento del subgrupo mayor
+
+
+la primera iteración se divide en 4, la siguiente entre 2 y sucesivamente así a un coste de 3 movimientos por elemento
+
+dividir entre 4 tiene un coste por movimiento de 1 push rotate, 2 push, 3 rotate push, 4 rotate 1,5 por elemento(óptimo) 750		  paramos con stacks menores a 16
+el 4 bloque lo divido(125 elementos max) mitad pequeña pushb, mitad grande rotate, 6 iteraciones 1 movimiento por elemento 125+62+31+16+8+4+2+1 249movimientos max y quedan 62+31+16 elementos del 4 divididos
+poner en a ordenados los subbloques menores de 16(no incluido)
+** 
+
+desde el b para dividir un subbloque mitad mayor pusha, mitad menor 2 rotate+ push (usando b) y 2rotate + push(usando a)
+en el caso de seguir dividiendo el stack b hacemos la mitad mayor de cada bloque push y a la menor push +2rotate 2movimientos por elemento excepto la mitad pequeña del último stack 
+110*2 quedan bloques de 31, 16 y 8, 125*2 y del bloque 2 125*2 y los mayores del bloque 1 63*1 total 470 + 250 + 63 = 783 movimientos hasta ahora tirando por lo alto 1800
+
+ahora vamos a ve, tenemos todo en el a menos un bloque el cual vamos a dividir recursivamente hasta que quede solo y mandamos los subbloques mayores al a de 32 y 16 tendremos unos 16 ordenados 
+
+entonces AHORA dividimos otra vez los bloques entre 2 lo cual nos costará unos 2 movimientos por elemento y son todos los bloques menos lo ordenado del 4 y lo ordenado del 1 que son como 30 
+470 * 2 ya son unos 3000 movimientos y quedarían los 16 menores del 4 en grupos de menos de 8, se ordena el grupo 8, 4 y 2 los 8 menores al a
+y
+el bloque 3 en bloques de 31-32, el 2 igual y la mitad mayor del bloque 1 en grupos de 16 y 8 un total de 275 sin ordenar (esto es la situación y están en el b)
+
+
+ahora dividimos del b al a y los bloques nos quedan de 16 y me quedan ya sin ordenar solo el bloque 2 y 3 así que otros 500 movimientos  3500 ya
+
+volvemos a pasar al b dividiendo en bloques de 8 ya y vuelven al a en bloques de 4 otros 500 y estaría por 4000 
+
+
+ya teniendo estos bloques vamos poniendo encima siempre que se pueda los números que son como 250
+
+
+haciendo al principio pushb si pequeño y rotate si mayor qué porcentaje defino como pequeños para que sea lo más eficiente posible, puedo hacerlo más eficiente aún
+
+ejemplo con 400 en grupos de 100 y de 50
+
+de la forma original serían 600 movimientos en grupos de 100 y otros 100 para vaciar el a en grupos de 50 del  4, luego por cada elemento dos movimientos de los otros 350*2 que son 1400 con grupos de 50 y 1 de 25
+de la otra serían 400*1 + 350*1+ 300*1+ 250*1 + 200+ 150 + 100 + 50 que son 450*4 1800 (n-m)*(n/m) esto es
+con grupos de 100 400+ 300+ 200+ 100
+
+90 en grupos de 10 son 90+80+70+60+50+40+30+20+10 450 100*4 + 50 o 50*9 n/m * n+m/2 t(m) = (n²+nm)/2m 
+de la otra 
+
+si hacer dos subgrupos me cuesta 2 movimientos por elemento entonces para n elementos son n*2*7 7000
+
+si n 100 n*2*4 800 y el requisito son 700 para la nota mínima
+
+lo que hago para que me tome menos movimientos es el arreglo que hace que me tome un movimiento por elemento para dividir t = n para 2 grupos para 3 2n
+
+entonces tengo un algoritmo que con (m -1) *  n movimientos hace  m grupos con un máximo de m < n/2**x la clave está en dividir un grupo cada vez en otros más pequeños 
+
+cuanto tiene que decrecer cada subgrupo por iteración para que sea óptimo? esta es la pregunta del siglo
+
+como y donde comprobar si ejecuto un ss?
+
+cuando posteriormente no se vaya a desordenar la info solo podrían desordenar los procesos con rotates
