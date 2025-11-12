@@ -14,7 +14,7 @@ NAME = push_swap
 
 BONUS = checker
 
-FLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g3
 
 SRCS = algorithm.c instructions_a.c instructions_b.c is_sorted.c lst_utils.c\
 		movements.c main.c b_a.c a_b.c make_limits_utils.c alg_utils.c \
