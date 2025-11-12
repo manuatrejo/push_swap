@@ -6,15 +6,13 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 04:04:50 by manguita          #+#    #+#             */
-/*   Updated: 2025/11/12 04:15:47 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 20:30:03 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdlib.h>
-# include <stdio.h>
 # include "libft/libft.h"
 
 typedef struct s_lst
@@ -24,16 +22,11 @@ typedef struct s_lst
 	int				flag;
 }	t_lst;
 
-typedef struct s_utils
-{
-	int	min;
-	int	max;
-	int	lim;
-}	t_utils;
-
 t_lst	*index_list(t_lst *list);
 t_lst	*make_list(char **av);
 int		valid_numbers(char **argv);
+int		check_doubles(t_lst *stack);
+
 int		push(t_lst **src_stack, t_lst **dst_stack);
 int		swap(t_lst **stack);
 int		rotate(t_lst **stack);
@@ -69,11 +62,10 @@ void	three_to_b(t_lst **stack_a, t_lst **stack_b, int *s_a);
 void	three_a_b(t_lst **stack_a, t_lst **stack_b, int *s_a, int *s_b);
 void	three_b_a(t_lst **stack_a, t_lst **stack_b, int *s_a, int *s_b);
 void	first_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b);
+void	aux_sort_ba(t_lst **stk_a, t_lst **stk_b, int *s_a, int *n_r);
+void	aux_sort_ab(t_lst **stk_a, t_lst **stk_b, int *s_b, int *n_r);
 int		optimal(t_lst **stk_a, t_lst **stk_b);
 int		elm_lwr(t_lst *lst, int cont);
 int		elm_bgr(t_lst *lst, int cont);
-void	aux_sort_ba(t_lst **stk_a, t_lst **stk_b, int *s_a, int *n_r);
-void	aux_sort_ab(t_lst **stk_a, t_lst **stk_b, int *s_b, int *n_r);
-int		check_doubles(t_lst *stack);
 
 #endif

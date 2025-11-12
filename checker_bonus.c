@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 00:02:19 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/12 05:03:04 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 20:57:58 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	read_instructions(t_lst **stk_a, t_lst **stk_b)
 
 int	main(int ac, char **av)
 {
-	t_lst	*temp;
 	t_lst	*stk_a;
 	t_lst	*stk_b;
 	int		i;
@@ -63,16 +62,18 @@ int	main(int ac, char **av)
 		return (0);
 	i = 0;
 	while (av[i])
-		if (av[i++][0] == '\0')
+		if (av[i++][0] == '\0' || only_char_str(av[i], ' '))
 			return (write(1, "Error\n", 6), 0);
-	stk_b = NULL;
 	if (!valid_numbers(av))
 		return (0);
-	temp = make_list(av);
-	if (!check_doubles(temp))
-		return (free_list(&temp), write(1, "Error\n", 6), 0);
-	stk_a = index_list(temp);
-	free_list(&temp);
+	stk_b = make_list(av);
+	if (!check_doubles(stk_b))
+		return (free_list(&stk_b), write(1, "Error\n", 6), 0);
+	stk_a = index_list(stk_b);
+	free_list(&stk_b);
+	if (!stk_a)
+		return (1);
+	stk_b = NULL;
 	read_instructions(&stk_a, &stk_b);
 	if (is_sorted(stk_a) && !stk_b)
 		return (free_list(&stk_a), write(1, "OK\n", 3), 0);

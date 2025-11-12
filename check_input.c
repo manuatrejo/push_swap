@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 02:00:12 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/12 05:27:43 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 20:54:22 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,24 @@ static void	*num_to_list(t_lst **list, int n)
 
 	new_node = malloc(sizeof(t_lst));
 	if (!new_node)
+	{
+		if (list)
+			free_list(list);
 		return (NULL);
+	}
 	new_node->flag = 0;
 	new_node->cont = n;
 	new_node->next = NULL;
 	if (*list == NULL)
 	{
 		*list = new_node;
-		return ;
+		return (list);
 	}
 	current = *list;
 	while (current->next != NULL)
 		current = current->next;
 	current->next = new_node;
+	return (list);
 }
 
 t_lst	*make_list(char **av)
@@ -81,7 +86,7 @@ t_lst	*make_list(char **av)
 		{
 			num = ft_atoi(numbers[j++]);
 			if (!num_to_list(&list, num))
-				return (free_array(numbers), free_list(&list), NULL);
+				return (free_array(numbers), NULL);
 		}
 		free_array(numbers);
 	}
@@ -109,7 +114,8 @@ t_lst	*index_list(t_lst *list)
 				index++;
 			current = current->next;
 		}
-		num_to_list(&new_list, index);
+		if (!num_to_list(&new_list, index))
+			return (NULL);
 		list = list->next;
 	}
 	return (new_list);
