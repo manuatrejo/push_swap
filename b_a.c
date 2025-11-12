@@ -6,28 +6,13 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 21:20:26 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/11 21:48:14 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 04:28:38 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	first_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b)
-{
-	int	size;
-
-	size = lst_size(*stk_a) + lst_size(*stk_b);
-	size /= 2;
-	size /= 2;
-	while (*stk_b && (*stk_b)->cont > size)
-	{
-		sort_b_a(stk_a, stk_b, s_a, *s_b);
-		aux_b_a(stk_a, stk_b, s_a, s_b);
-	}
-	sort_lowest(stk_a, stk_b, s_a, s_b);
-}
-
-void	sort_lowest(t_lst **stk_a, t_lst **stk_b, int *srt_a, int *srt_b)
+static void	sort_lowest(t_lst **stk_a, t_lst **stk_b, int *srt_a, int *srt_b)
 {
 	int	limit;
 	int	size;
@@ -48,16 +33,7 @@ void	sort_lowest(t_lst **stk_a, t_lst **stk_b, int *srt_a, int *srt_b)
 		*srt_b = (*stk_b)->cont;
 }
 
-void	three_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b)
-{
-	while (*stk_b && (*stk_b)->cont > *s_b)
-	{
-		sort_b_a(stk_a, stk_b, s_a, *s_b);
-		aux_b_a(stk_a, stk_b, s_a, s_b);
-	}
-}
-
-void	aux_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b)
+static void	aux_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b)
 {
 	int	lims[3];
 	int	n_rotates;
@@ -84,14 +60,14 @@ void	aux_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b)
 		pa(stk_a, stk_b, s_a, NULL);
 }
 
-void	sort_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int s_b)
+static void	sort_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int s_b)
 {
 	int	n_r;
 	int	ind_posit;
 	int	n;
 
 	n_r = 0;
-	n = 50;
+	n = 70;
 	while ((*stk_b && (*stk_a)->cont == *s_a && f_in(*stk_b, *s_a - 1) < n
 			&& (*stk_b)->cont >= s_b) || n_r > 0)
 	{
@@ -104,5 +80,29 @@ void	sort_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int s_b)
 			rrb(stk_b, &n_r);
 		else if (ind_posit > 2 && ind_posit < n)
 			aux_sort_ba(stk_a, stk_b, s_a, &n_r);
+	}
+}
+
+void	first_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b)
+{
+	int	size;
+
+	size = lst_size(*stk_a) + lst_size(*stk_b);
+	size /= 2;
+	size /= 2;
+	while (*stk_b && (*stk_b)->cont > size)
+	{
+		sort_b_a(stk_a, stk_b, s_a, *s_b);
+		aux_b_a(stk_a, stk_b, s_a, s_b);
+	}
+	sort_lowest(stk_a, stk_b, s_a, s_b);
+}
+
+void	three_b_a(t_lst **stk_a, t_lst **stk_b, int *s_a, int *s_b)
+{
+	while (*stk_b && (*stk_b)->cont > *s_b)
+	{
+		sort_b_a(stk_a, stk_b, s_a, *s_b);
+		aux_b_a(stk_a, stk_b, s_a, s_b);
 	}
 }

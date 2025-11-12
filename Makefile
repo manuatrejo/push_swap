@@ -49,8 +49,7 @@ clean:
 	make clean -C libft
 
 fclean: clean
-	$(RM) $(NAME)
-	$(RM) $(BONUS)
+	$(RM) $(NAME) $(BONUS)
 	make fclean -C libft
 
 re: fclean all

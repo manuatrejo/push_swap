@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 02:00:12 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/11 01:16:06 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 05:18:03 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	valid_numbers(char **argv)
 	return (1);
 }
 
-void	num_to_list(t_lst **list, int n)
+static void	num_to_list(t_lst **list, int n)
 {
 	t_lst	*new_node;
 	t_lst	*current;
@@ -49,6 +49,7 @@ void	num_to_list(t_lst **list, int n)
 	new_node = malloc(sizeof(t_lst));
 	if (!new_node)
 		exit(1);
+	new_node->flag = 0;
 	new_node->cont = n;
 	new_node->next = NULL;
 	if (*list == NULL)

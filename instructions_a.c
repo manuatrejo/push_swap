@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 21:34:37 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/11 23:10:00 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 04:31:48 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	ra(t_lst **stack_a, t_lst **stack_b, int *n_rot)
 		write(1, "ra\n", 3);
 }
 
-void	rra(t_lst **stack_a, t_lst **stack_b, int *n_rot)
+void	rra(t_lst **stack_a, int *n_rot)
 {
-	stack_b--;
-	stack_b++;
 	if (n_rot)
 		(*n_rot)--;
 	if (reverse_rotate(stack_a))

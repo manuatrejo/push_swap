@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 21:36:31 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/11 21:41:28 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 03:25:44 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ int	s_lim(t_lst *stack)
 		temp = temp->next;
 	}
 	return (-1);
-}
-
-int	optimal(t_lst **stk_a, t_lst **stk_b)
-{
-	if (!stk_a || !stk_b || !*stk_a || !*stk_b
-		|| !(*stk_a)->next || !(*stk_b)->next)
-		return (0);
-	if ((*stk_a)->cont > (*stk_a)->next->cont
-		&& (*stk_b)->cont < (*stk_b)->next->cont)
-		return (ss(stk_a, stk_b), 1);
-	return (0);
 }
 
 int	put_flg(t_lst **stack, int index)

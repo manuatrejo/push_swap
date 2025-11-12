@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 06:19:17 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/12 02:07:35 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 02:39:39 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	manage_rotations(t_lst **stk_a, t_lst **stk_b, int *s_a, int lowest)
 	pa(stk_a, stk_b, s_a, NULL);
 	while (!f_in(*stk_b, *s_a - 1) && *s_a - 1 >= lowest)
 	{
-		rra(stk_a, stk_b, NULL);
+		rra(stk_a, NULL);
 		put_flg(stk_b, --(*s_a) - 1);
 	}
 }

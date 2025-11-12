@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.c                                          :+:      :+:    :+:   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 00:02:19 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/11 22:08:06 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 05:03:04 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	execute_instructions(t_lst **stk_a, t_lst **stk_b, char *line)
+static void	execute_instructions(t_lst **stk_a, t_lst **stk_b, char *line)
 {
 	if (ft_strncmp(line, "pa\n", 3) == 0)
 		push(stk_b, stk_a);
@@ -38,7 +38,7 @@ void	execute_instructions(t_lst **stk_a, t_lst **stk_b, char *line)
 		(swap(stk_a), swap(stk_b));
 }
 
-void	read_instructions(t_lst **stk_a, t_lst **stk_b)
+static void	read_instructions(t_lst **stk_a, t_lst **stk_b)
 {
 	char	*line;
 
@@ -48,6 +48,7 @@ void	read_instructions(t_lst **stk_a, t_lst **stk_b)
 		if (!line)
 			break ;
 		execute_instructions(stk_a, stk_b, line);
+		free(line);
 	}
 }
 
@@ -74,6 +75,6 @@ int	main(int ac, char **av)
 	free_list(&temp);
 	read_instructions(&stk_a, &stk_b);
 	if (is_sorted(stk_a) && !stk_b)
-		return (write(1, "OK\n", 3), 0);
+		return (free_list(&stk_a), write(1, "OK\n", 3), 0);
 	return (write(1, "KO\n", 3), 0);
 }
