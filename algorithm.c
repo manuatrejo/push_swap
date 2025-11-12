@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 21:20:15 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/12 04:08:00 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 05:33:48 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	simple_sort(t_lst **stack_a, t_lst **stack_b)
 {
 	int	size;
 
+	if (is_sorted(*stack_a))
+		return ;
 	size = lst_size(*stack_a);
 	while (lst_size(*stack_a) > 3)
 	{

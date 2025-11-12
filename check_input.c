@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 02:00:12 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/12 05:18:03 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/12 05:27:43 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	valid_numbers(char **argv)
 	return (1);
 }
 
-static void	num_to_list(t_lst **list, int n)
+static void	*num_to_list(t_lst **list, int n)
 {
 	t_lst	*new_node;
 	t_lst	*current;
 
 	new_node = malloc(sizeof(t_lst));
 	if (!new_node)
-		exit(1);
+		return (NULL);
 	new_node->flag = 0;
 	new_node->cont = n;
 	new_node->next = NULL;
@@ -80,7 +80,8 @@ t_lst	*make_list(char **av)
 		while (numbers[j])
 		{
 			num = ft_atoi(numbers[j++]);
-			num_to_list(&list, num);
+			if (!num_to_list(&list, num))
+				return (free_array(numbers), free_list(&list), NULL);
 		}
 		free_array(numbers);
 	}
