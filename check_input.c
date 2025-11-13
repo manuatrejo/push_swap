@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 02:00:12 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/12 20:54:22 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/13 20:54:44 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	valid_numbers(char **argv)
 			while (arg_split[j][k])
 				if (!(arg_split[j][k] >= '0' && arg_split[j][k++] <= '9') ||
 					ft_atoi(arg_split[j]) == 2147483648)
-					return (free_array(arg_split), write(1, "Error\n", 6), 0);
+					return (free_array(arg_split), 0);
 			j++;
 		}
 		free_array(arg_split);

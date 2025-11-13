@@ -6,7 +6,7 @@
 /*   By: maanguit <maanguit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 00:02:19 by maanguit          #+#    #+#             */
-/*   Updated: 2025/11/12 20:57:58 by maanguit         ###   ########.fr       */
+/*   Updated: 2025/11/13 20:54:14 by maanguit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	main(int ac, char **av)
 
 	if (ac == 1)
 		return (0);
-	i = 0;
-	while (av[i])
-		if (av[i++][0] == '\0' || only_char_str(av[i], ' '))
+	i = -1;
+	while (av[++i])
+		if (av[i][0] == '\0' || only_char_str(av[i], ' '))
 			return (write(1, "Error\n", 6), 0);
 	if (!valid_numbers(av))
 		return (0);
